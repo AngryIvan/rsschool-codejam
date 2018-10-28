@@ -3,6 +3,7 @@
 const assert = require('assert');
 const sumOfOther = require('./src/sumOfOther.js');
 const make = require('./src/make.js');
+const recursion = require('./src/recursion.js');
 
 describe('sum of other', () => {
   it('sum of other #1', () => {
@@ -49,5 +50,51 @@ describe('make', () => {
 
   it('make #5 divide by zero', () => {
     assert.deepEqual(make(500)(0)(divide), Infinity);
+  });
+});
+
+describe('recursion', () => {
+  const tree1 = { value: 100, left: { value: 90, left: { value: 70 }, right: { value: 99 } }, right: { value: 120, left: { value: 110 }, right: { value: 130 } } };
+  const tree2 = { value: 10, left: { value: 8, left: { value: 7 }, right: { value: 9 } }, right: { value: 12, left: { value: 11 }, right: { value: 13 } } };
+  const tree3 = { value: 5, left: { value: 4 }, right: { value: 6 } };
+  const tree4 = { value: 'eeny', left: { value: 'meeny', left: { value: 'moe', left: { value: 'by' }, right: { value: 'the' } }, right: { value: 'catch', left: { value: 'toe' }, right: { value: 'if' } } }, right: { value: 'miny', left: { value: 'a', left: { value: 'he' }, right: { value: 'holsters' } }, right: { value: 'tiger', left: { value: 'let' }, right: { value: 'him go' } } } };
+  const tree5 = { value: 5 };
+
+  it('recursion #1', () => {
+    assert.deepEqual(recursion(tree1), [
+      [100],
+      [90, 120],
+      [70, 99, 110, 130],
+    ]);
+  });
+
+  it('recursion #2', () => {
+    assert.deepEqual(recursion(tree2), [
+      [10],
+      [8, 12],
+      [7, 9, 11, 13],
+    ]);
+  });
+
+  it('recursion #3', () => {
+    assert.deepEqual(recursion(tree3), [
+      [5],
+      [4, 6],
+    ]);
+  });
+
+  it('recursion #4', () => {
+    assert.deepEqual(recursion(tree4), [
+      ['eeny'],
+      ['meeny', 'miny'],
+      ['moe', 'catch', 'a', 'tiger'],
+      ['by', 'the', 'toe', 'if', 'he', 'holsters', 'let', 'him go'],
+    ]);
+  });
+
+  it('recursion #5', () => {
+    assert.deepEqual(recursion(tree5), [
+      [5],
+    ]);
   });
 });
